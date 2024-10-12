@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "print_polynomials.h"
+#include "divide_polynomials.h"
 
 int main()
 {
@@ -32,6 +33,8 @@ int main()
     divisor_polynomial[i] = idk;
   } 
 
+  printf("\033[H\033[J");
+
   /* Printing the polynomials */
   printf("Dividend: ");
   print_polynomials(i_dividend, dividend_polynomial);
@@ -39,48 +42,12 @@ int main()
   print_polynomials(i_divisor, divisor_polynomial);
 
   /* Divide the polynomials */
-  int i_quotient = (i_dividend - i_divisor);
-  int i_reminder = (i_dividend - i_divisor);
-
-  float quotient_polynomial[i_quotient+1], reminder_polynomial[i_reminder+1];
-
-  for(int k = 0; k <= i_quotient; ++k)
-  {
-    if(k == 0)
-    {
-      quotient_polynomial[k] = dividend_polynomial[0] / divisor_polynomial[0];
-      for(int l = 0; l <= i_reminder; ++l)
-      {
-        reminder_polynomial[l] = dividend_polynomial[l]-(quotient_polynomial[k]*divisor_polynomial[l]);
-      }
-      for(int m = 0; m <= i_reminder; ++m)
-      {
-        if(m == i_reminder)
-          reminder_polynomial[m] = dividend_polynomial[k+m+1];
-        else
-          reminder_polynomial[m] = reminder_polynomial[m+1];
-      }
-    }
-    else
-    {
-      quotient_polynomial[k] = reminder_polynomial[0] / divisor_polynomial[0];
-      for(int l = 0; l <= i_reminder; ++l)
-      {
-        reminder_polynomial[l] = reminder_polynomial[l]-(quotient_polynomial[k]*divisor_polynomial[l]);
-      }
-      for(int m = 0; m <= i_reminder; ++m)
-      {
-        if(m == i_reminder)
-          reminder_polynomial[m] = dividend_polynomial[k+m+1];
-        else
-          reminder_polynomial[m] = reminder_polynomial[m+1];
-      } 
-    }
-  }
+  Polynomial_division_result result;
+  result = divide_polynomials(i_dividend, i_divisor, dividend_polynomial, divisor_polynomial);  
 
   printf("Quotient: ");
-  print_polynomials(i_quotient, quotient_polynomial);
+  print_polynomials(result.quotient_d, result.quotient_p);
   printf("Reminder: ");
-  print_polynomials(i_reminder, reminder_polynomial);
+  print_polynomials(result.reminder_d, result.reminder_p);
 }
 
