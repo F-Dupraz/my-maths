@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "print_polynomials.h"
+#include "multiply_polynomials.h"
 #include "divide_polynomials.h"
 
 int main()
@@ -49,5 +50,11 @@ int main()
   print_polynomials(result.quotient_d, result.quotient_p);
   printf("Reminder: ");
   print_polynomials(result.reminder_d, result.reminder_p);
+
+  Polynomial_multiplication_result product;
+  product = multiply_polynomials(result.quotient_d, i_divisor, result.quotient_p, divisor_polynomial);
+
+  printf("\nProduct: ");
+  print_polynomials(product.product_d, product.product_p);
 }
 
